@@ -47,22 +47,22 @@ PannModel >> init [
 	
 "create grid"	
 	self
-		createGridNumberOfRows: 31
-		numberOfColumns: 31
+		createGridNumberOfRows: 70
+		numberOfColumns: 70
 		neighbourhood: 6
 		closed: true.
 		
 "create sea"
 	seaPlots := self
 						selectCellsBetweenRow: 1
-						andRow: 31
+						andRow: 70
 						column: 1
-						andColumn: 31.
+						andColumn: 70.
 						
 	seaPlots do: #beSea.
 	
 "create village"
-	villagePlot := self pickCellAt: 15@15.
+	villagePlot := self pickCellAt: 35@35.
 	villagePlot beVillage.
 
 "create mudflat"
