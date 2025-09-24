@@ -67,18 +67,30 @@ PannModel >> init [
 
 "create mudflat"
 	mudflatPlots := self
-						selectCellsBetweenRow: 5 
+						selectCellsBetweenRow: 6 
 						andRow: 10 
-						column: 5 
+						column: 6 
 						andColumn: 10.
-	mudflatPlots add: (self selectCellsBetweenRow: 13 
-									andRow: 20 
-									column: 23 
-									andColumn: 28).
-	mudflatPlots add: (self selectCellsBetweenRow: 21 
-									andRow: 28 
+	mudflatPlots add: (self selectCellsBetweenRow: 60 
+									andRow: 65 
+									column: 30 
+									andColumn: 35).
+	mudflatPlots add: (self selectCellsBetweenRow: 32 
+									andRow: 37 
 									column: 7 
-									andColumn: 14 ).
+									andColumn: 11 ).
+	mudflatPlots add: (self selectCellsBetweenRow: 33 
+									andRow: 38 
+									column: 36 
+									andColumn: 39 ).
+	mudflatPlots add: (self selectCellsBetweenRow: 20 
+									andRow: 24 
+									column: 40 
+									andColumn: 43 ).
+	mudflatPlots add: (self selectCellsBetweenRow: 45 
+									andRow: 49 
+									column: 55 
+									andColumn: 59 ).
 	
 	mudflatPlots flattened do: #beMudflat.
 

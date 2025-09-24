@@ -32,7 +32,7 @@ PannPlot >> pov [
 	<pov>
 	
 	state = #sea ifTrue: [ ^ CMPointOfView color: '70EAFF' ].
-	state = #village ifTrue: [ ^ CMPointOfView tile: PannTileset hutte size: 0.3 ].
+	state = #village ifTrue: [ ^ CMPointOfView color: 'FF7700' ].
 	state = #mudflat ifTrue: [ ^ CMPointOfView color: 'FFFCB3' ].
 	
 	^ super pov. "if no state, super pov by default"
