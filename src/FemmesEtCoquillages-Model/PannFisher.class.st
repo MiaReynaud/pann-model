@@ -4,9 +4,31 @@ Class {
 	#instVars : [
 		'dailyEarnings'
 	],
+	#classInstVars : [
+		'shellfishPrice'
+	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
 }
+
+{ #category : 'initialization' }
+PannFisher class >> initializeParameters [ 
+
+	super initializeParameters.
+	shellfishPrice := 3500 "en FCFA"
+]
+
+{ #category : 'accessing' }
+PannFisher class >> shellfishPrice [
+
+	^ shellfishPrice
+]
+
+{ #category : 'accessing' }
+PannFisher class >> shellfishPrice: anObject [
+
+	shellfishPrice := anObject
+]
 
 { #category : 'accessing' }
 PannFisher >> dailyEarnings [
