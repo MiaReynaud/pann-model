@@ -40,72 +40,74 @@ PannModel class >> prefix [
 
 { #category : 'as yet unclassified' }
 PannModel >> init [
-	<init>
 	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
-	
-	| seaPlots villagePlot mudflatPlots |
-	
-"create grid"	
+
+	<init>
+	| seaPlots villagePlot mudflatPlots shellfish |
+	"create grid"
 	self
 		createGridNumberOfRows: 70
 		numberOfColumns: 70
 		neighbourhood: 6
 		closed: true.
-		
-"create sea"
+
+	"create sea"
 	seaPlots := self
-						selectCellsBetweenRow: 1
-						andRow: 70
-						column: 1
-						andColumn: 70.
-						
+		            selectCellsBetweenRow: 1
+		            andRow: 70
+		            column: 1
+		            andColumn: 70.
+
 	seaPlots do: #beSea.
-	
-"create village"
-	villagePlot := self pickCellAt: 35@35.
+
+	"create village"
+	villagePlot := self pickCellAt: 35 @ 35.
 	villagePlot beVillage.
 
-"create mudflat"
+	"create mudflat"
 	mudflatPlots := self
-						selectCellsBetweenRow: 6 
-						andRow: 10 
-						column: 6 
-						andColumn: 10.
-	mudflatPlots add: (self selectCellsBetweenRow: 60 
-									andRow: 65 
-									column: 30 
-									andColumn: 35).
-	mudflatPlots add: (self selectCellsBetweenRow: 32 
-									andRow: 37 
-									column: 7 
-									andColumn: 11 ).
-	mudflatPlots add: (self selectCellsBetweenRow: 33 
-									andRow: 38 
-									column: 36 
-									andColumn: 39 ).
-	mudflatPlots add: (self selectCellsBetweenRow: 20 
-									andRow: 24 
-									column: 40 
-									andColumn: 43 ).
-	mudflatPlots add: (self selectCellsBetweenRow: 45 
-									andRow: 49 
-									column: 55 
-									andColumn: 59 ).
-	
+		                selectCellsBetweenRow: 6
+		                andRow: 10
+		                column: 6
+		                andColumn: 10.
+	mudflatPlots add: (self
+			 selectCellsBetweenRow: 60
+			 andRow: 65
+			 column: 30
+			 andColumn: 35).
+	mudflatPlots add: (self
+			 selectCellsBetweenRow: 32
+			 andRow: 37
+			 column: 7
+			 andColumn: 11).
+	mudflatPlots add: (self
+			 selectCellsBetweenRow: 33
+			 andRow: 38
+			 column: 36
+			 andColumn: 39).
+	mudflatPlots add: (self
+			 selectCellsBetweenRow: 20
+			 andRow: 24
+			 column: 40
+			 andColumn: 43).
+	mudflatPlots add: (self
+			 selectCellsBetweenRow: 45
+			 andRow: 49
+			 column: 55
+			 andColumn: 59).
+
 	mudflatPlots flattened do: #beMudflat.
 
-"add shellfish"
-	self 
-		createN: 30
-		randomlyLocatedEntities: PannShellfish 
-		constrainedBy: [ :aCell | aCell state = #mudflat ].
-		
-"add fishers"
-	self 
+
+	"add shellfish on every mudflat cell"
+	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
+		self newEntity: PannShellfish locatedAt: cell ].
+
+	"add fishers"
+	self
 		createN: self class numberOfFishers
-		randomlyLocatedEntities: PannFisher 
+		randomlyLocatedEntities: PannFisher
 		constrainedBy: [ :aCell | aCell state = #mudflat ]
-	
 ]
 
 { #category : 'as yet unclassified' }
