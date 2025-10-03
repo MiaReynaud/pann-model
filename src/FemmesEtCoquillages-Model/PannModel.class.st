@@ -43,7 +43,7 @@ PannModel >> init [
 	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
 
 	<init>
-	| seaPlots villagePlot mudflatPlots shellfish |
+	| seaPlots villagePlot mudflatPlots |
 	"create grid"
 	self
 		createGridNumberOfRows: 70
@@ -114,4 +114,6 @@ PannModel >> init [
 PannModel >> step [
 	<control>
 	"This method will be executed at every step of the simulation"
+	
+	(self @@PannFisher) do: #fish 
 ]
