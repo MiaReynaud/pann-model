@@ -26,6 +26,12 @@ PannPlot >> beVillage [
 	state := #village
 ]
 
+{ #category : 'initialization' }
+PannPlot >> initialize [ 
+
+	super initialize.
+]
+
 { #category : 'accessing' }
 PannPlot >> pov [ 
 
@@ -50,4 +56,10 @@ PannPlot >> shellfishes [
 PannPlot >> state [
 
 	^ state
+]
+
+{ #category : 'accessing' }
+PannPlot >> state: anObject [
+
+	state := anObject
 ]

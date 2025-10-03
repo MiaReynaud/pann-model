@@ -115,5 +115,7 @@ PannModel >> step [
 	<control>
 	"This method will be executed at every step of the simulation"
 	
-	(self @@PannFisher) do: #fish 
+	(self shuffled: (self @@ PannFisher))
+		do: #goToFishingSpot;
+		do: #fish. 
 ]

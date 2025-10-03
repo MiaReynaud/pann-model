@@ -34,6 +34,21 @@ PannFisher >> fish [
 ]
 
 { #category : 'accessing' }
+PannFisher >> goToFishingSpot [
+	"The fisher go to the fishing spot where she think she will earn the most"
+	
+	<action>
+	| fishingSpot |
+	
+	fishingSpot := self selectRandomlyFrom: 
+		(cormasModel cells select: [ :c | c state = #mudflat ]).
+	
+	self moveTo: fishingSpot.
+	
+
+]
+
+{ #category : 'accessing' }
 PannFisher >> initialize [ 
 
 	super initialize.
