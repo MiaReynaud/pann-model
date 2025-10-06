@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : 'accessing' }
+PannPlot >> beMangrove [
+
+	state := #mangrove
+]
+
+{ #category : 'accessing' }
 PannPlot >> beMudflat [
 
 	state := #mudflat
@@ -33,6 +39,30 @@ PannPlot >> initialize [
 ]
 
 { #category : 'accessing' }
+PannPlot >> isMangrove [
+
+	^ state = #mangrove
+]
+
+{ #category : 'accessing' }
+PannPlot >> isMudflat [
+
+	^ state = #mudflat
+]
+
+{ #category : 'accessing' }
+PannPlot >> isSea [
+
+	^ state = #sea
+]
+
+{ #category : 'accessing' }
+PannPlot >> isVillage [
+
+	^ state = #village
+]
+
+{ #category : 'accessing' }
 PannPlot >> pov [ 
 
 	<pov>
@@ -40,6 +70,7 @@ PannPlot >> pov [
 	state = #sea ifTrue: [ ^ CMPointOfView color: '70EAFF' ].
 	state = #village ifTrue: [ ^ CMPointOfView color: '8F1437' ].
 	state = #mudflat ifTrue: [ ^ CMPointOfView color: 'FFFCB3' ].
+	state = #mangrove ifTrue: [ ^ CMPointOfView color: '0DB370' ].
 	
 	^ super pov. "if no state, super pov by default"
 ]
