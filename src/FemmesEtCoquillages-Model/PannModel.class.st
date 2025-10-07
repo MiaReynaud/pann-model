@@ -56,6 +56,19 @@ PannModel >> applyStatesFromMatrix: aMatrix [
 				value = 3 ifTrue: [ cell beMangrove ] ] ].
 ]
 
+{ #category : 'as yet unclassified' }
+PannModel >> averageFishedQuantityPerWoman [
+
+	<probeNamed: 'Average fished quantity per woman (in bassin)' color: '808080'>
+
+	  | fishers total |
+    fishers := self @@ PannFisher.
+    fishers isEmpty ifTrue: [ ^0 ].
+
+    total := fishers sum: [:each | each dailyEarnings].
+    ^ total asFloat / fishers size asFloat
+]
+
 { #category : 'init' }
 PannModel >> init [
 	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
