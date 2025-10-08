@@ -67,6 +67,21 @@ PannFisher >> goToFishingSpot [
 
 ]
 
+{ #category : 'actions' }
+PannFisher >> goToVillage [
+	"The fisher go to the fishing spot where she think she will earn the most"
+	
+	<action>
+	| village |
+	
+	village := self selectRandomlyFrom: 
+		(cormasModel cells select: [ :c | c state = #village ]).
+	
+	self moveTo: village.
+	
+
+]
+
 { #category : 'initialize' }
 PannFisher >> initialize [ 
 

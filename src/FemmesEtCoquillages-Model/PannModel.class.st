@@ -199,6 +199,18 @@ PannModel >> initMatrix [
 
 ]
 
+{ #category : 'time  ' }
+PannModel >> isFishingPeriod [
+    "Return true if the current month is within the fishing period (Nov–Jun)"
+    ^ (currentMonth >= 11) or: [currentMonth <= 6]
+]
+
+{ #category : 'time  ' }
+PannModel >> isNotFishingPeriod [
+    "Return true if the current month is within the no-fishing period (Jul–Oct)"
+    ^ (currentMonth >= 7) and: [currentMonth <= 10]
+]
+
 { #category : 'gridMatrix' }
 PannModel >> stateMatrix30 [
     "Return a sample map: 1 = forest, 0 = empty"
@@ -317,17 +329,24 @@ PannModel >> stateMatrix70 [
 
 { #category : 'stepping' }
 PannModel >> step [
+	"one simulation day"
+	
 	<control>
-	"This method will be executed at every step of the simulation"
 	
 	self updateDate.
 	
-	(self shuffled: (self @@ PannFisher))
+	self isFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;
 		do: #fish.
+		].
+	
+	self isNotFishingPeriod ifTrue: [ 
+		(self shuffled: (self @@ PannFisher))
+		do: #goToVillage. 
+		].
 ]
 
-{ #category : 'stepping' }
+{ #category : 'time  ' }
 PannModel >> updateDate [
     "Move forward one day and update the month accordingly"
     | daysInMonth |
