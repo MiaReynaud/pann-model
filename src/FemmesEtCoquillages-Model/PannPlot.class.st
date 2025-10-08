@@ -77,9 +77,9 @@ PannPlot >> pov [
 
 { #category : 'accessing' }
 PannPlot >> shellfishes [
-	"this method returns you the shellfish in the cell "
+	"this method returns you the shellfish population in the cell "
 
-	^ self occupantsOfClass: PannShellfish.
+	^ self occupantsOfClass: PannShellfishPopulation.
 		
 ]
 

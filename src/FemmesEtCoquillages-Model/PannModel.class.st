@@ -160,7 +160,7 @@ PannModel >> init [
 
 	"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfish locatedAt: cell ].
+		self newEntity: PannShellfishPopulation locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -189,7 +189,7 @@ PannModel >> initMatrix [
 	
 		"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfish locatedAt: cell ].
+		self newEntity: PannShellfishPopulation locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -321,8 +321,6 @@ PannModel >> step [
 	"This method will be executed at every step of the simulation"
 	
 	self updateDate.
-	
-	self @@ PannShellfish do: [:s | s updateDailyFishableQuantity].
 	
 	(self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;
