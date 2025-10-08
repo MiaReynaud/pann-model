@@ -340,9 +340,9 @@ PannModel >> step [
 		do: #fish.
 		].
 	
-	self isNotFishingPeriod ifTrue: [ 
-		(self shuffled: (self @@ PannFisher))
-		do: #goToVillage. 
+	self isNotFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
+		do: #goToVillage;
+		do: [:fisher | fisher dailyEarnings: 0 ].
 		].
 ]
 
