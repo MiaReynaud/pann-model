@@ -1,6 +1,10 @@
 Class {
 	#name : 'PannModel',
 	#superclass : 'CMAbstractModel',
+	#instVars : [
+		'currentDay',
+		'currentMonth'
+	],
 	#classInstVars : [
 		'numberOfFishers'
 	],
@@ -67,6 +71,30 @@ PannModel >> averageFishedQuantityPerWoman [
 
     total := fishers sum: [:each | each dailyEarnings].
     ^ total asFloat / fishers size asFloat
+]
+
+{ #category : 'accessing' }
+PannModel >> currentDay [
+
+	^ currentDay
+]
+
+{ #category : 'accessing' }
+PannModel >> currentDay: anObject [
+
+	currentDay := anObject
+]
+
+{ #category : 'accessing' }
+PannModel >> currentMonth [
+
+	^ currentMonth
+]
+
+{ #category : 'accessing' }
+PannModel >> currentMonth: anObject [
+
+	currentMonth := anObject
 ]
 
 { #category : 'init' }
@@ -146,6 +174,10 @@ PannModel >> initMatrix [
 	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
 
 	<init>
+	
+	currentDay := 1.
+	currentMonth := 11. "simulation starts in november"
+	
 	"create grid"
 	self
 		createGridNumberOfRows: 70
@@ -288,7 +320,26 @@ PannModel >> step [
 	<control>
 	"This method will be executed at every step of the simulation"
 	
+	self updateDate.
+	
+	self @@ PannShellfish do: [:s | s updateDailyFishableQuantity].
+	
 	(self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;
 		do: #fish.
+]
+
+{ #category : 'stepping' }
+PannModel >> updateDate [
+    "Move forward one day and update the month accordingly"
+    | daysInMonth |
+
+    daysInMonth := #(31 28 31 30 31 30 31 31 30 31 30 31).  "Nombre de jours par mois"
+
+    currentDay := currentDay + 1.
+
+    (currentDay > (daysInMonth at: currentMonth)) ifTrue: [
+        currentDay := 1.
+        currentMonth := (currentMonth \\ 12) + 1.
+    ].
 ]
