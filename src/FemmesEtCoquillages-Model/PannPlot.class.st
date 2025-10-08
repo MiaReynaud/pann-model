@@ -8,25 +8,25 @@ Class {
 	#package : 'FemmesEtCoquillages-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> beMangrove [
 
 	state := #mangrove
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> beMudflat [
 
 	state := #mudflat
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> beSea [
 
 	state := #sea
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> beVillage [
 
 	state := #village
@@ -38,31 +38,31 @@ PannPlot >> initialize [
 	super initialize.
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> isMangrove [
 
 	^ state = #mangrove
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> isMudflat [
 
 	^ state = #mudflat
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> isSea [
 
 	^ state = #sea
 ]
 
-{ #category : 'accessing' }
+{ #category : 'state changing' }
 PannPlot >> isVillage [
 
 	^ state = #village
 ]
 
-{ #category : 'accessing' }
+{ #category : 'pov' }
 PannPlot >> pov [ 
 
 	<pov>

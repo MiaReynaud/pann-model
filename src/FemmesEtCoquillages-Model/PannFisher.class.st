@@ -42,7 +42,7 @@ PannFisher >> dailyEarnings: anObject [
 	dailyEarnings := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
 PannFisher >> fish [
 	 | shellfishPopulation |
     
@@ -55,7 +55,7 @@ PannFisher >> fish [
 		ifNotEmpty: [ dailyEarnings := shellfishPopulation first dailyFishableQuantity ]. "as shellfishPopulation is a collection of 0 or 1 element, we ask to look at the dailyFishableQuantity of the first element of the collection"
 ]
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
 PannFisher >> goToFishingSpot [
 	"The fisher go to the fishing spot where she think she will earn the most"
 	
@@ -70,14 +70,14 @@ PannFisher >> goToFishingSpot [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : 'initialize' }
 PannFisher >> initialize [ 
 
 	super initialize.
 	dailyEarnings := 0.
 ]
 
-{ #category : 'accessing' }
+{ #category : 'pov' }
 PannFisher >> pov [ 
 	<pov>
 	^ CMPointOfView 

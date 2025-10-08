@@ -38,7 +38,7 @@ PannModel class >> prefix [
 	^ 'Pann'.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'gridMatrix' }
 PannModel >> applyStatesFromMatrix: aMatrix [
 
 	| rows cols value cell |
@@ -56,7 +56,7 @@ PannModel >> applyStatesFromMatrix: aMatrix [
 				value = 3 ifTrue: [ cell beMangrove ] ] ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'probes' }
 PannModel >> averageFishedQuantityPerWoman [
 
 	<probeNamed: 'Average fished quantity per woman (in bassin)' color: '808080'>
@@ -167,7 +167,7 @@ PannModel >> initMatrix [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'gridMatrix' }
 PannModel >> stateMatrix30 [
     "Return a sample map: 1 = forest, 0 = empty"
     ^ #(
@@ -204,7 +204,7 @@ PannModel >> stateMatrix30 [
     )
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'gridMatrix' }
 PannModel >> stateMatrix70 [
 	"Returns a sample map : 0 = sea, 1 = village, 2 = mudflat, 3 = mangrove."
 	
@@ -283,7 +283,7 @@ PannModel >> stateMatrix70 [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'stepping' }
 PannModel >> step [
 	<control>
 	"This method will be executed at every step of the simulation"

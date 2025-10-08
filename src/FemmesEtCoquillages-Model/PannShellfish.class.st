@@ -27,7 +27,7 @@ PannShellfish >> initialize [
 	self dailyFishableQuantity: 1.5.
 ]
 
-{ #category : 'accessing' }
+{ #category : 'pov' }
 PannShellfish >> pov [ 
 	<pov>
 	^ CMPointOfView 
