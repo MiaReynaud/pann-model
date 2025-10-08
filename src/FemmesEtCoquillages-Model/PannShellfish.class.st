@@ -40,7 +40,9 @@ PannShellfish >> pov [
 { #category : 'actions' }
 PannShellfish >> updateDailyFishableQuantity [
     "Updates the daily catchable quantity by month of the year.
-Decreases linearly from 2.5 (November) to 1.0 (June), then increases back to 2.5 (November)."
+Decreases linearly from 2.5 (November) to 1.0 (June), then increases back to 2.5 (November).
+
+Dans mon agent PannShellfish, je veux ajouter une méthode pour faire évoluer le dailyFishableQuantity. Je l'initialize à 2,5 basins pêchées au début de la simulation (novembre). Et après je veux qu'il décroisse linéairement pour arriver à 1 bassine en juin. Puis il se reconstruit linéairement pour revenir à 2,5 en novembvre"
 
     
     | month valueAtStart valueAtMid valueAtEnd slope value |
@@ -58,7 +60,7 @@ Decreases linearly from 2.5 (November) to 1.0 (June), then increases back to 2.5
         "Descending period: November → June"
         slope := (valueAtMid - valueAtStart) / 7.0.  "7 months between November and June"
         month >= 11
-            ifTrue: [ value := valueAtStart + slope * (month - 11) ]
+            ifTrue: [ value := valueAtStart + slope * (month - 10) ]
             ifFalse: [ value := valueAtStart + slope * (month + 1) ].
         ^ self dailyFishableQuantity: value
     ].
