@@ -47,12 +47,9 @@ PannFisher >> fish [
 	 | shellfishPopulation |
     
     "look for shellfish population on the same cell as the fisher"
-   shellfishPopulation := self cell shellfishes .
+   shellfishPopulation := self cell shellfishPopulation .
 
-    "if there is no shellfish, there is no earning, if there is a population, the fisher earns the dailyFishableQuantity of this agent"
-   shellfishPopulation 
-		ifEmpty: [ dailyEarnings := 0 ]
-		ifNotEmpty: [ dailyEarnings := shellfishPopulation first dailyFishableQuantity ]. "as shellfishPopulation is a collection of 0 or 1 element, we ask to look at the dailyFishableQuantity of the first element of the collection"
+	dailyEarnings := shellfishPopulation dailyFishableQuantity .
 ]
 
 { #category : 'actions' }

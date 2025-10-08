@@ -76,10 +76,10 @@ PannPlot >> pov [
 ]
 
 { #category : 'accessing' }
-PannPlot >> shellfishes [
+PannPlot >> shellfishPopulation [
 	"this method returns you the shellfish population in the cell "
 
-	^ self occupantsOfClass: PannShellfishPopulation.
+	^ (self occupantsOfClass: PannShellfishPopulation) first. "there can only be 1 population of shellfish on the cell, not more, not 0"
 		
 ]
 
