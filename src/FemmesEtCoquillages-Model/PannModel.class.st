@@ -15,7 +15,7 @@ Class {
 { #category : 'initialization' }
 PannModel class >> initializeParameters [
 	super initializeParameters.
-	numberOfFishers := 5
+	numberOfFishers := 150
 ]
 
 { #category : 'as yet unclassified' }
@@ -160,7 +160,7 @@ PannModel >> init [
 
 	"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfishPopulation locatedAt: cell ].
+		self newEntity: PannShellfishCohort locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -189,7 +189,7 @@ PannModel >> initMatrix [
 	
 		"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfishPopulation locatedAt: cell ].
+		self newEntity: PannShellfishCohort locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -334,6 +334,8 @@ PannModel >> step [
 	<control>
 	
 	self updateDate.
+	
+	self @@ PannShellfishCohort do: [:s | s stepCohort ].
 	
 	self isFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;
