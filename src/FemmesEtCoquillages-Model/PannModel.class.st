@@ -160,7 +160,7 @@ PannModel >> init [
 
 	"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfishPopulation locatedAt: cell ].
+		self newEntity: PannShellfish locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -189,7 +189,7 @@ PannModel >> initMatrix [
 	
 		"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfishPopulation locatedAt: cell ].
+		self newEntity: PannShellfish locatedAt: cell ].
 
 	"add fishers"
 	self

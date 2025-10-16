@@ -16,13 +16,6 @@ Class {
 	#package : 'FemmesEtCoquillages-Model'
 }
 
-{ #category : 'accessing' }
-PannShellfishPopulation >> dailyFishableQuantity [
-
-    ^ #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29) at: self cormasModel currentMonth.
-
-]
-
 { #category : 'init  ' }
 PannShellfishPopulation >> init [ 
 
@@ -39,16 +32,6 @@ PannShellfishPopulation >> init [
    bigMeanSize := 30.0.
 
    ^self
-]
-
-{ #category : 'pov' }
-PannShellfishPopulation >> pov [ 
-	<pov>
-	^ CMPointOfView 
-		color: '804C1F'
-		shape: #circle 
-		size: 0.2
-		
 ]
 
 { #category : 'initialize-release' }
