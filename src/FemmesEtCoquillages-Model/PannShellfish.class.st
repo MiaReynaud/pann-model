@@ -47,7 +47,7 @@ PannShellfish >> pov [
 ]
 
 { #category : 'accessing' }
-PannShellfish >> size1 [
+PannShellfish >> size [
 
 	^ size
 ]
