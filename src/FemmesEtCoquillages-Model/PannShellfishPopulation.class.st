@@ -1,5 +1,5 @@
 Class {
-	#name : 'PannShellfishCohort',
+	#name : 'PannShellfishPopulation',
 	#superclass : 'CMAgent',
 	#instVars : [
 		'smallCount',
@@ -17,14 +17,14 @@ Class {
 }
 
 { #category : 'accessing' }
-PannShellfishCohort >> dailyFishableQuantity [
+PannShellfishPopulation >> dailyFishableQuantity [
 
     ^ #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29) at: self cormasModel currentMonth.
 
 ]
 
 { #category : 'init  ' }
-PannShellfishCohort >> init [ 
+PannShellfishPopulation >> init [ 
 
 	super init.
 	
@@ -42,7 +42,7 @@ PannShellfishCohort >> init [
 ]
 
 { #category : 'pov' }
-PannShellfishCohort >> pov [ 
+PannShellfishPopulation >> pov [ 
 	<pov>
 	^ CMPointOfView 
 		color: '804C1F'
@@ -52,7 +52,7 @@ PannShellfishCohort >> pov [
 ]
 
 { #category : 'initialize-release' }
-PannShellfishCohort >> stepCohort [
+PannShellfishPopulation >> stepCohort [
 
 	 | growthPerDay recruits transitionToMedium transitionToMature transitionToBig |
 
