@@ -37,6 +37,22 @@ PannShellfishPopulation >> pov [
 ]
 
 { #category : 'initialize-release' }
+PannShellfishPopulation >> reproduce [ 
+
+    | numberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
+
+    matureCohorts := cohorts select: [ :each | each sizeOfShellfishes >= 2 ].
+
+    numberOfNewbornsPerShellfish := 1.
+    numberOfNewborns := 0.
+
+    matureCohorts do: [ :each |
+        numberOfNewborns := numberOfNewborns + (numberOfNewbornsPerShellfish * each numberOfShellfish) ].
+
+    cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
+]
+
+{ #category : 'initialize-release' }
 PannShellfishPopulation >> shiftCohorts [
 
 	| cohort nextCohort |
@@ -57,6 +73,11 @@ PannShellfishPopulation >> stepCohort [
 
     "making shellfishes grow"
 	self cormasModel dayCounter % 16 = 0 ifTrue: [ self shiftCohorts ].
+
+    "making shellfishes reproduce"
+	self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ].
+
+
 
     "Switching class depending on size"
 "    transitionToMedium := 0.
