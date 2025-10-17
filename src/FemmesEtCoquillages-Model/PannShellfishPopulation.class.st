@@ -2,36 +2,32 @@ Class {
 	#name : 'PannShellfishPopulation',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'smallCount',
-		'mediumCount',
-		'matureCount',
-		'bigCount',
-		'smallMeanSize',
-		'mediumMeanSize',
-		'matureMeanSize',
-		'bigMeanSize',
-		'totalNumberOfShellfish'
+		'cohorts'
 	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
 }
 
 { #category : 'init  ' }
-PannShellfishPopulation >> init [ 
+PannShellfishPopulation >> initialize [ 
 
-	super init.
-	
-	smallCount := 100.
-   mediumCount := 75.
-   matureCount := 50.
-   bigCount := 10.
+	super initialize .
 
-   smallMeanSize := 0.0.
-   mediumMeanSize := 16.0.
-   matureMeanSize := 19.0.
-   bigMeanSize := 30.0.
+	cohorts := (1 to: 7 by: 0.5) collect: [ :size |
+  		PannShellfishCohort new
+    		age: 0;
+    		size: size;
+    		numberOfShellfish: 0;
+    		yourself ].
+]
 
-   ^self
+{ #category : 'init  ' }
+PannShellfishPopulation >> pov [ 
+	<pov>
+	^ CMPointOfView 
+		color: '804C1F'
+		shape: #circle 
+		size: 0.2
 ]
 
 { #category : 'initialize-release' }

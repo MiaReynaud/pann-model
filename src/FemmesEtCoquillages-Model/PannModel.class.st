@@ -187,9 +187,9 @@ PannModel >> initMatrix [
 		
  	self applyStatesFromMatrix: self stateMatrix70 .
 	
-		"add shellfish on every mudflat cell"
+	"add shellfish on every mudflat cell"
 	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfish locatedAt: cell ].
+		self newEntity: PannShellfishPopulation locatedAt: cell ].
 
 	"add fishers"
 	self
@@ -335,7 +335,7 @@ PannModel >> step [
 	
 	self updateDate.
 	
-	self @@ PannShellfishPopulation do: [:s | s stepCohort ].
+	"self @@ PannShellfishPopulation do: [:s | s stepCohort ]. "
 	
 	self isFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;
