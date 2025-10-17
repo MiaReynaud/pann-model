@@ -6,9 +6,32 @@ Class {
 		'size',
 		'numberOfShellfish'
 	],
+	#classInstVars : [
+		'growthPerDay'
+	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
 }
+
+{ #category : 'accessing' }
+PannShellfishCohort class >> growthPerDay [
+
+	^ growthPerDay
+]
+
+{ #category : 'accessing' }
+PannShellfishCohort class >> growthPerDay: anObject [
+
+	growthPerDay := anObject
+]
+
+{ #category : 'accessing' }
+PannShellfishCohort class >> initializeParameters [ 
+
+	super initializeParameters. 
+	
+	growthPerDay := 1 / 30.0.  "≈ 0.033 mm/day"
+]
 
 { #category : 'accessing' }
 PannShellfishCohort >> age [
@@ -20,6 +43,12 @@ PannShellfishCohort >> age [
 PannShellfishCohort >> age: anObject [
 
 	age := anObject
+]
+
+{ #category : 'accessing' }
+PannShellfishCohort >> grow [
+	
+	size := size + self class growthPerDay.
 ]
 
 { #category : 'accessing' }

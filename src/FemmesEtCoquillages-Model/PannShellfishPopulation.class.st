@@ -8,6 +8,12 @@ Class {
 	#package : 'FemmesEtCoquillages-Model'
 }
 
+{ #category : 'initialize-release' }
+PannShellfishPopulation >> dailyFishableQuantity [ 
+
+	 ^ #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29) at: self cormasModel currentMonth.
+]
+
 { #category : 'init  ' }
 PannShellfishPopulation >> initialize [ 
 
@@ -33,22 +39,17 @@ PannShellfishPopulation >> pov [
 { #category : 'initialize-release' }
 PannShellfishPopulation >> stepCohort [
 
-	 | growthPerDay recruits transitionToMedium transitionToMature transitionToBig |
-
-    growthPerDay := 1 / 30.0.  "≈ 0.033 mm/day"
+	 | recruits transitionToMedium transitionToMature transitionToBig |
 
     "making shellfishes grow"
-   smallMeanSize := smallMeanSize + growthPerDay.
-   mediumMeanSize := mediumMeanSize + growthPerDay.
-   matureMeanSize := matureMeanSize + growthPerDay.
-	bigMeanSize := bigMeanSize + growthPerDay.
+	cohorts do: [ :each | each grow ]
 
     "Switching class depending on size"
-    transitionToMedium := 0.
+"    transitionToMedium := 0.
     transitionToMature := 0.
-    transitionToBig := 0.
+    transitionToBig := 0."
 
-    (smallMeanSize > 16) ifTrue: [
+    "(smallMeanSize > 16) ifTrue: [
         transitionToMedium := smallCount * ((smallMeanSize - 16) / smallMeanSize) min: smallCount.
         smallCount := smallCount - transitionToMedium.
         mediumCount := mediumCount + transitionToMedium.
@@ -67,21 +68,21 @@ PannShellfishPopulation >> stepCohort [
         matureCount := matureCount - transitionToBig.
         bigCount := bigCount + transitionToBig.
         matureMeanSize := 19.0.
-    ].
+    ]."
 
     "Reproduction"
-    recruits := ((matureCount * 0.001) + (bigCount * 0.0005)) rounded. "≈ 0.1% par jour"
-    smallCount := smallCount + recruits.
+"    recruits := ((matureCount * 0.001) + (bigCount * 0.0005)) rounded. ""≈ 0.1% par jour""
+    smallCount := smallCount + recruits."
 
     "Mortality"
-    smallCount := (smallCount * 0.99) rounded.
+"    smallCount := (smallCount * 0.99) rounded.
     mediumCount := (mediumCount * 0.99) rounded.
     matureCount := (matureCount * 0.99) rounded.
-    bigCount := (bigCount * 0.99) rounded.
+    bigCount := (bigCount * 0.99) rounded."
 
     "Conversion to integer"
-    smallCount := smallCount max: 0.
+  "  smallCount := smallCount max: 0.
     mediumCount := mediumCount max: 0.
     matureCount := matureCount max: 0.
-    bigCount := bigCount max: 0.
+    bigCount := bigCount max: 0."
 ]
