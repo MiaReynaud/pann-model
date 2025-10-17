@@ -3,8 +3,8 @@ Class {
 	#superclass : 'CMAgent',
 	#instVars : [
 		'age',
-		'size',
-		'numberOfShellfish'
+		'numberOfShellfish',
+		'sizeOfShellfishes'
 	],
 	#classInstVars : [
 		'growthPerDay'
@@ -48,7 +48,7 @@ PannShellfishCohort >> age: anObject [
 { #category : 'accessing' }
 PannShellfishCohort >> grow [
 	
-	size := size + self class growthPerDay.
+"do nothing"
 ]
 
 { #category : 'accessing' }
@@ -64,13 +64,13 @@ PannShellfishCohort >> numberOfShellfish: anObject [
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> size [
+PannShellfishCohort >> sizeOfShellfishes [
 
-	^ size
+	^ sizeOfShellfishes
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> size: anObject [
+PannShellfishCohort >> sizeOfShellfishes: anObject [
 
-	size := anObject
+	sizeOfShellfishes := anObject
 ]

@@ -22,8 +22,8 @@ PannShellfishPopulation >> initialize [
 	cohorts := (1 to: 7 by: 0.5) collect: [ :size |
   		PannShellfishCohort new
     		age: 0;
-    		size: size;
-    		numberOfShellfish: 0;
+    		sizeOfShellfishes: size;
+    		numberOfShellfish: 100;
     		yourself ].
 ]
 
@@ -37,12 +37,26 @@ PannShellfishPopulation >> pov [
 ]
 
 { #category : 'initialize-release' }
+PannShellfishPopulation >> shiftCohorts [
+
+	| cohort nextCohort |
+	
+
+(1 to: cohorts size - 1) reverseDo: [ :i |
+	cohort := cohorts at: i.
+    nextCohort := cohorts at: i + 1.
+
+    nextCohort numberOfShellfish: nextCohort numberOfShellfish + cohort numberOfShellfish .
+    cohort numberOfShellfish: 0 ].
+]
+
+{ #category : 'initialize-release' }
 PannShellfishPopulation >> stepCohort [
 
 	 | recruits transitionToMedium transitionToMature transitionToBig |
 
     "making shellfishes grow"
-	cohorts do: [ :each | each grow ]
+	self cormasModel dayCounter % 16 = 0 ifTrue: [ self shiftCohorts ].
 
     "Switching class depending on size"
 "    transitionToMedium := 0.

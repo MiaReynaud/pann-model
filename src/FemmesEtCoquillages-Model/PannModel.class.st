@@ -2,8 +2,9 @@ Class {
 	#name : 'PannModel',
 	#superclass : 'CMAbstractModel',
 	#instVars : [
-		'currentDay',
-		'currentMonth'
+		'currentDayOfMonth',
+		'currentMonth',
+		'dayCounter'
 	],
 	#classInstVars : [
 		'numberOfFishers'
@@ -74,15 +75,9 @@ PannModel >> averageFishedQuantityPerWoman [
 ]
 
 { #category : 'accessing' }
-PannModel >> currentDay [
+PannModel >> currentDayOfMonth [
 
-	^ currentDay
-]
-
-{ #category : 'accessing' }
-PannModel >> currentDay: anObject [
-
-	currentDay := anObject
+	^ currentDayOfMonth
 ]
 
 { #category : 'accessing' }
@@ -92,9 +87,9 @@ PannModel >> currentMonth [
 ]
 
 { #category : 'accessing' }
-PannModel >> currentMonth: anObject [
+PannModel >> dayCounter [
 
-	currentMonth := anObject
+	^ dayCounter
 ]
 
 { #category : 'init' }
@@ -103,8 +98,9 @@ PannModel >> initMatrix [
 
 	<init>
 	
-	currentDay := 1.
+	currentDayOfMonth := 1.
 	currentMonth := 11. "simulation starts in november"
+	dayCounter  := 0.
 	
 	"create grid"
 	self
@@ -281,12 +277,13 @@ PannModel >> updateDate [
     "Move forward one day and update the month accordingly"
     | daysInMonth |
 
-    daysInMonth := #(31 28 31 30 31 30 31 31 30 31 30 31).  "Nombre de jours par mois"
+	daysInMonth := #(31 28 31 30 31 30 31 31 30 31 30 31).  "Number of day per month"
 
-    currentDay := currentDay + 1.
+   currentDayOfMonth := currentDayOfMonth + 1.
+	dayCounter := dayCounter + 1.
 
-    (currentDay > (daysInMonth at: currentMonth)) ifTrue: [
-        currentDay := 1.
-        currentMonth := (currentMonth \\ 12) + 1.
+   (currentDayOfMonth > (daysInMonth at: currentMonth)) ifTrue: [
+		currentDayOfMonth := 1.
+		currentMonth := (currentMonth \\ 12) + 1.
     ].
 ]
