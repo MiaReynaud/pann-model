@@ -74,6 +74,23 @@ PannModel >> averageFishedQuantityPerWoman [
     ^ total asFloat / fishers size asFloat
 ]
 
+{ #category : 'probes' }
+PannModel >> averageShellfishDensityOnMudflat [
+
+	<probeNamed: 'Average shellfish density on mudflat (ind/m2)' color: '0000FF'>
+
+	 | totalNumberOfShellfishInModel mudflatsCount totalArea |
+	
+	totalNumberOfShellfishInModel := (self @@ PannShellfishPopulation sum: [:p | p totalNumberOfShellfish]).
+	mudflatsCount := (self cells select: [ :c | c state = #mudflat ]) size.
+	totalArea := mudflatsCount * 5000. "one cell is 0.5 ha, so 5000 m²"
+	
+	totalArea > 0
+        ifTrue: [ ^ (totalNumberOfShellfishInModel / totalArea) asInteger ]
+        ifFalse: [ ^ 0 ].
+	
+]
+
 { #category : 'accessing' }
 PannModel >> currentDayOfMonth [
 

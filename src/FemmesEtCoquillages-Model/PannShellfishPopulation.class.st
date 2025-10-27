@@ -2,7 +2,8 @@ Class {
 	#name : 'PannShellfishPopulation',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'cohorts'
+		'cohorts',
+		'totalNumberOfShellfish'
 	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
@@ -25,6 +26,8 @@ PannShellfishPopulation >> initialize [
     		sizeOfShellfishes: size;
     		numberOfShellfish: 100;
     		yourself ].
+	
+	totalNumberOfShellfish := cohorts sum: [:cohort | cohort numberOfShellfish].
 ]
 
 { #category : 'init  ' }
@@ -69,55 +72,23 @@ PannShellfishPopulation >> shiftCohorts [
 { #category : 'initialize-release' }
 PannShellfishPopulation >> stepCohort [
 
-	 | recruits transitionToMedium transitionToMature transitionToBig |
-
     "making shellfishes grow"
 	self cormasModel dayCounter % 16 = 0 ifTrue: [ self shiftCohorts ].
 
     "making shellfishes reproduce"
 	self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ].
+	
+	totalNumberOfShellfish := cohorts sum: [:cohort | cohort numberOfShellfish].
+]
 
+{ #category : 'initialize-release' }
+PannShellfishPopulation >> totalNumberOfShellfish [
 
+ ^ totalNumberOfShellfish
+]
 
-    "Switching class depending on size"
-"    transitionToMedium := 0.
-    transitionToMature := 0.
-    transitionToBig := 0."
+{ #category : 'initialize-release' }
+PannShellfishPopulation >> totalNumberOfShellfish: anObject [
 
-    "(smallMeanSize > 16) ifTrue: [
-        transitionToMedium := smallCount * ((smallMeanSize - 16) / smallMeanSize) min: smallCount.
-        smallCount := smallCount - transitionToMedium.
-        mediumCount := mediumCount + transitionToMedium.
-        smallMeanSize := 1.0.
-    ].
-
-    (mediumMeanSize > 19) ifTrue: [
-        transitionToMature := mediumCount * ((mediumMeanSize - 19) / mediumMeanSize) min: mediumCount.
-        mediumCount := mediumCount - transitionToMature.
-        matureCount := matureCount + transitionToMature.
-        mediumMeanSize := 16.0.
-    ].
-
-    (matureMeanSize > 40) ifTrue: [
-        transitionToBig := matureCount * ((matureMeanSize - 40) / matureMeanSize) min: matureCount.
-        matureCount := matureCount - transitionToBig.
-        bigCount := bigCount + transitionToBig.
-        matureMeanSize := 19.0.
-    ]."
-
-    "Reproduction"
-"    recruits := ((matureCount * 0.001) + (bigCount * 0.0005)) rounded. ""≈ 0.1% par jour""
-    smallCount := smallCount + recruits."
-
-    "Mortality"
-"    smallCount := (smallCount * 0.99) rounded.
-    mediumCount := (mediumCount * 0.99) rounded.
-    matureCount := (matureCount * 0.99) rounded.
-    bigCount := (bigCount * 0.99) rounded."
-
-    "Conversion to integer"
-  "  smallCount := smallCount max: 0.
-    mediumCount := mediumCount max: 0.
-    matureCount := matureCount max: 0.
-    bigCount := bigCount max: 0."
+ totalNumberOfShellfish := anObject.
 ]
