@@ -2,8 +2,7 @@ Class {
 	#name : 'PannShellfishPopulation',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'cohorts',
-		'totalNumberOfShellfish'
+		'cohorts'
 	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
@@ -12,15 +11,24 @@ Class {
 { #category : 'initialize-release' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	| monthlyEarnings shellfishesPerBag |
-	
-	 "those magic numbers come from the womens estimation of number of bags fished per women per day each month"
-	monthlyEarnings := #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29).
-	
-	"We estimate that a bag is composed of 1200 shellfish on average"
-	shellfishesPerBag := 1200.
+	 ^ self totalNumberOfShellfish / 25
+]
 
-	 ^ (monthlyEarnings at: self cormasModel currentMonth) * shellfishesPerBag.
+{ #category : 'as yet unclassified' }
+PannShellfishPopulation >> extractShellfish [
+
+	| numberOfShellfishesToExtract exctractedFromCohort totalExtracted |
+	
+	numberOfShellfishesToExtract := self dailyFishableQuantity.
+	totalExtracted := 0. 
+	
+	cohorts reversed do: [ :cohort |
+		exctractedFromCohort := cohort numberOfShellfish min: numberOfShellfishesToExtract.
+		cohort numberOfShellfish: cohort numberOfShellfish - exctractedFromCohort.
+		numberOfShellfishesToExtract := numberOfShellfishesToExtract - exctractedFromCohort.
+		totalExtracted := totalExtracted + exctractedFromCohort ].
+	
+	^ totalExtracted 
 ]
 
 { #category : 'init  ' }
@@ -34,8 +42,6 @@ PannShellfishPopulation >> initialize [
     		sizeOfShellfishes: size;
     		numberOfShellfish: 100;
     		yourself ].
-	
-	totalNumberOfShellfish := cohorts sum: [:cohort | cohort numberOfShellfish].
 ]
 
 { #category : 'init  ' }
@@ -54,7 +60,7 @@ PannShellfishPopulation >> reproduce [
 
     matureCohorts := cohorts select: [ :each | each sizeOfShellfishes >= 2 ].
 
-    dailyNumberOfNewbornsPerShellfish := 1.0/30. "on average a shellfish creates a shellfish once a month"
+    dailyNumberOfNewbornsPerShellfish := 2.0/30. "on average a shellfish creates a 5 shellfishes once a month"
     numberOfNewborns := 0.
 
     matureCohorts do: [ :each |
@@ -85,18 +91,10 @@ PannShellfishPopulation >> stepCohort [
 
     "making shellfishes reproduce"
 	self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ].
-	
-	totalNumberOfShellfish := cohorts sum: [:cohort | cohort numberOfShellfish].
 ]
 
 { #category : 'initialize-release' }
 PannShellfishPopulation >> totalNumberOfShellfish [
 
- ^ totalNumberOfShellfish
-]
-
-{ #category : 'initialize-release' }
-PannShellfishPopulation >> totalNumberOfShellfish: anObject [
-
- totalNumberOfShellfish := anObject.
+ ^ cohorts sum: [:cohort | cohort numberOfShellfish].
 ]

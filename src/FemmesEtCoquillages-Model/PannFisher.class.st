@@ -44,14 +44,8 @@ PannFisher >> dailyEarnings: anObject [
 
 { #category : 'actions' }
 PannFisher >> fish [
-	 | shellfishPopulation |
     
-    "look for shellfish population on the same cell as the fisher"
-   shellfishPopulation := self cell shellfishPopulation .
-
-	dailyEarnings := shellfishPopulation dailyFishableQuantity.
-	
-	shellfishPopulation totalNumberOfShellfish: shellfishPopulation totalNumberOfShellfish - dailyEarnings.
+	dailyEarnings := self cell shellfishPopulation extractShellfish.
 ]
 
 { #category : 'actions' }
