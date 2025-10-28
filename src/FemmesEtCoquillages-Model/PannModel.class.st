@@ -86,7 +86,7 @@ PannModel >> averageShellfishDensityOnMudflat [
 	totalArea := mudflatsCount * 5000. "one cell is 0.5 ha, so 5000 m²"
 	
 	totalArea > 0
-        ifTrue: [ ^ (totalNumberOfShellfishInModel / totalArea) asInteger ]
+        ifTrue: [ ^ (totalNumberOfShellfishInModel / totalArea) asFloat ]
         ifFalse: [ ^ 0 ].
 	
 ]
