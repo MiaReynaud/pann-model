@@ -11,7 +11,7 @@ Class {
 { #category : 'initialize-release' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	 ^ self totalNumberOfShellfish / 25
+	 ^ self totalNumberOfShellfish * 1/25. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat is 5000m², the total number of available shellfish should be multiplied by (400/5000)*0.5 = 1/25  "
 ]
 
 { #category : 'as yet unclassified' }
