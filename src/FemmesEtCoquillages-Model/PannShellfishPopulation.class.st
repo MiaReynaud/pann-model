@@ -12,7 +12,15 @@ Class {
 { #category : 'initialize-release' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	 ^ #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29) at: self cormasModel currentMonth.
+	| monthlyEarnings shellfishesPerBag |
+	
+	 "those magic numbers come from the womens estimation of number of bags fished per women per day each month"
+	monthlyEarnings := #(2.07 1.86 1.64 1.43 1.21 1 1.3 1.6 1.9 2.2 2.5 2.29).
+	
+	"We estimate that a bag is composed of 1200 shellfish on average"
+	shellfishesPerBag := 1200.
+
+	 ^ (monthlyEarnings at: self cormasModel currentMonth) * shellfishesPerBag.
 ]
 
 { #category : 'init  ' }

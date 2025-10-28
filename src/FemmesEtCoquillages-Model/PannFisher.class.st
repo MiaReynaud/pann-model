@@ -49,7 +49,9 @@ PannFisher >> fish [
     "look for shellfish population on the same cell as the fisher"
    shellfishPopulation := self cell shellfishPopulation .
 
-	dailyEarnings := shellfishPopulation dailyFishableQuantity .
+	dailyEarnings := shellfishPopulation dailyFishableQuantity.
+	
+	shellfishPopulation totalNumberOfShellfish: shellfishPopulation totalNumberOfShellfish - dailyEarnings.
 ]
 
 { #category : 'actions' }
