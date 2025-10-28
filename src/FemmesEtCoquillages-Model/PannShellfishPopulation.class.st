@@ -50,15 +50,15 @@ PannShellfishPopulation >> pov [
 { #category : 'initialize-release' }
 PannShellfishPopulation >> reproduce [ 
 
-    | numberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
+    | dailyNumberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
 
     matureCohorts := cohorts select: [ :each | each sizeOfShellfishes >= 2 ].
 
-    numberOfNewbornsPerShellfish := 1.
+    dailyNumberOfNewbornsPerShellfish := 1.0/30. "on average a shellfish creates a shellfish once a month"
     numberOfNewborns := 0.
 
     matureCohorts do: [ :each |
-        numberOfNewborns := numberOfNewborns + (numberOfNewbornsPerShellfish * each numberOfShellfish) ].
+        numberOfNewborns := numberOfNewborns + (dailyNumberOfNewbornsPerShellfish * each numberOfShellfish) ].
 
     cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
 ]
