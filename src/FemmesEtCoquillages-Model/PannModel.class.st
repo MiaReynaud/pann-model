@@ -81,13 +81,30 @@ PannModel >> averageShellfishDensityOnMudflat [
 
 	 | totalNumberOfShellfishInModel mudflatsCount totalArea |
 	
-	totalNumberOfShellfishInModel := (self @@ PannShellfishPopulation sum: [:p | p totalNumberOfShellfish]).
+	totalNumberOfShellfishInModel := (self @@ PannShellfishPopulation sum: [:p | p totalNumberOfShellfishes]).
 	mudflatsCount := (self cells select: [ :c | c state = #mudflat ]) size.
 	totalArea := mudflatsCount * 5000. "one cell is 0.5 ha, so 5000 m²"
 	
 	totalArea > 0
         ifTrue: [ ^ (totalNumberOfShellfishInModel / totalArea) asFloat ]
         ifFalse: [ ^ 0 ].
+	
+]
+
+{ #category : 'init' }
+PannModel >> buildSare [
+	
+	self releaseAggregateType: PannSare .
+	self
+		createAggregates: PannSare 
+		from: PannPlot 
+		verifying: [ :aCell | aCell isMudflat ]
+		minimumSize: 2.
+		
+	(self @@ PannSare) do: [ :agg | "self spaceModel meanCompactness: PannSare"
+		agg initNeighbourhood ].
+	
+	self initialiseSareAttributes.
 	
 ]
 
@@ -136,7 +153,9 @@ PannModel >> initMatrix30 [
 	self
 		createN: self class numberOfFishers
 		randomlyLocatedEntities: PannFisher
-		constrainedBy: [ :aCell | aCell state = #mudflat ]
+		constrainedBy: [ :aCell | aCell state = #mudflat ].
+		
+	self buildSare. 
 
 ]
 
@@ -202,6 +221,32 @@ PannModel >> initMatrix70 [
 
 ]
 
+{ #category : 'init' }
+PannModel >> initialiseSareAttributes [
+
+	| sare |
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 1]. 
+	sare name: 'amacala 1'.
+	sare recruitCapacity: 183. "20 000 1cm shellfishes are recruited every year, so 109 every two days "
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 2]. 
+	sare name: 'anewanew 1'.
+	sare recruitCapacity: 96. "17 500 per year"
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 3]. 
+	sare name: 'mbina'.
+	sare recruitCapacity: 82. "15 000 per year"
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 4]. 
+	sare name: 'anewanew 2'.
+	sare recruitCapacity: 68. "12500 per year"
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 5]. 
+	sare name: 'amacala 2'.
+	sare recruitCapacity: 55. "10 000 per year"
+]
+
 { #category : 'time  ' }
 PannModel >> isFishingPeriod [
     "Return true if the current month is within the fishing period (Nov–Jun)"
@@ -212,6 +257,13 @@ PannModel >> isFishingPeriod [
 PannModel >> isNotFishingPeriod [
     "Return true if the current month is within the no-fishing period (Jul–Oct)"
     ^ (currentMonth between: 7 and: 10)
+]
+
+{ #category : 'init' }
+PannModel >> sareNamed: aString [
+"to access a sare by his name"
+
+	^(self @@ PannSare) detect: [ :each | each name = aString ]
 ]
 
 { #category : 'gridMatrix' }
@@ -352,7 +404,10 @@ PannModel >> step [
 	
 	self updateDate.
 	
-	self @@ PannShellfishPopulation do: [:s | s stepCohort ].
+	self @@ PannShellfishPopulation do: [:s | 
+		s stepCohort.
+		s recruit.
+		 ].
 	
 	self isFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
 		do: #goToFishingSpot;

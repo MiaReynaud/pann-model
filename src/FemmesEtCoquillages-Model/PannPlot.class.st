@@ -76,6 +76,12 @@ PannPlot >> pov [
 ]
 
 { #category : 'accessing' }
+PannPlot >> sare [
+    "Return a sare to which this plot belongs"
+    ^ self getAggregateType: PannSare
+]
+
+{ #category : 'accessing' }
 PannPlot >> shellfishPopulation [
 	"this method returns you the shellfish population in the cell "
 

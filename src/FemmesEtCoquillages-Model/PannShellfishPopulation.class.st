@@ -8,10 +8,22 @@ Class {
 	#package : 'FemmesEtCoquillages-Model'
 }
 
+{ #category : 'accessing' }
+PannShellfishPopulation >> cohorts [
+
+	^ cohorts
+]
+
+{ #category : 'accessing' }
+PannShellfishPopulation >> cohorts: anObject [
+
+	cohorts := anObject
+]
+
 { #category : 'fishing methods' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	 ^ self totalNumberOfShellfish * 1/25 min: 3000. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat cell is 5000m², the total number of available shellfish in the cell (or in the population, it's the same because a cell has only one population and a population is on only one cell) should be multiplied by (400/5000)*0.5 = 1/25  "
+	 ^ self totalNumberOfShellfishes * 1/25 min: 3000. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat cell is 5000m², the total number of available shellfish in the cell (or in the population, it's the same because a cell has only one population and a population is on only one cell) should be multiplied by (400/5000)*0.5 = 1/25  "
 ]
 
 { #category : 'fishing methods' }
@@ -55,7 +67,17 @@ PannShellfishPopulation >> pov [
 ]
 
 { #category : 'ecological methods' }
-PannShellfishPopulation >> reproduce [ 
+PannShellfishPopulation >> recruit [ 
+
+	| numberOfNewborns |
+	
+	numberOfNewborns := self cell sare recruitCapacity.
+	
+	cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
+]
+
+{ #category : 'not used methods' }
+PannShellfishPopulation >> reproduce [
 
     | dailyNumberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
 
@@ -90,12 +112,12 @@ PannShellfishPopulation >> stepCohort [
     "making shellfishes grow"
 	self cormasModel dayCounter % 16 = 0 ifTrue: [ self shiftCohorts ].
 
-    "making shellfishes reproduce"
-	"self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ]."
+    "recruitment"
+	self cormasModel dayCounter % 2 = 0 ifTrue: [ self recruit ].
 ]
 
-{ #category : 'indicators' }
-PannShellfishPopulation >> totalNumberOfShellfish [
+{ #category : 'accessing  ' }
+PannShellfishPopulation >> totalNumberOfShellfishes [
 
  ^ cohorts sum: [:cohort | cohort numberOfShellfish].
 ]
