@@ -31,7 +31,7 @@ PannShellfishPopulation >> extractShellfish [
 	^ totalExtracted 
 ]
 
-{ #category : 'init  ' }
+{ #category : 'as yet unclassified' }
 PannShellfishPopulation >> initialize [ 
 
 	super initialize .
@@ -40,7 +40,7 @@ PannShellfishPopulation >> initialize [
   		PannShellfishCohort new
     		age: 0;
     		sizeOfShellfishes: size;
-    		numberOfShellfish: 5000000; "we estimate that there is one shellfish of each cohort in 10cm², so it's 5 000 000 shellfish of each cohort in 0,5 ha"
+    		numberOfShellfish: 2500000; "we estimate that there is one shellfish of each cohort in 20cm², so it's 2 500 000 shellfish of each cohort in 0,5 ha"
     		yourself ].
 ]
 
