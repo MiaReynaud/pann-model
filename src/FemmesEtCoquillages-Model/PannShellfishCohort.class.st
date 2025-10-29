@@ -46,12 +46,6 @@ PannShellfishCohort >> age: anObject [
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> grow [
-	
-"do nothing"
-]
-
-{ #category : 'accessing' }
 PannShellfishCohort >> numberOfShellfish [
 
 	^ numberOfShellfish

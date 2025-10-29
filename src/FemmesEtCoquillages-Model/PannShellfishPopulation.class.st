@@ -8,21 +8,21 @@ Class {
 	#package : 'FemmesEtCoquillages-Model'
 }
 
-{ #category : 'initialize-release' }
+{ #category : 'fishing methods' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	 ^ self totalNumberOfShellfish * 1/25. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat is 5000m², the total number of available shellfish should be multiplied by (400/5000)*0.5 = 1/25  "
+	 ^ self totalNumberOfShellfish * 1/25. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat cell is 5000m², the total number of available shellfish in the cell (or in the population, it's the same because a cell has only one population and a population is on only one cell) should be multiplied by (400/5000)*0.5 = 1/25  "
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'fishing methods' }
 PannShellfishPopulation >> extractShellfish [
 
 	| numberOfShellfishesToExtract exctractedFromCohort totalExtracted |
 	
-	numberOfShellfishesToExtract := self dailyFishableQuantity.
 	totalExtracted := 0. 
+	numberOfShellfishesToExtract := self dailyFishableQuantity.
 	
-	cohorts reversed do: [ :cohort |
+	cohorts reversed do: [ :cohort | "we reverse it so that the fishers take the bigest ones in priority"
 		exctractedFromCohort := cohort numberOfShellfish min: numberOfShellfishesToExtract.
 		cohort numberOfShellfish: cohort numberOfShellfish - exctractedFromCohort.
 		numberOfShellfishesToExtract := numberOfShellfishesToExtract - exctractedFromCohort.
@@ -44,7 +44,7 @@ PannShellfishPopulation >> initialize [
     		yourself ].
 ]
 
-{ #category : 'init  ' }
+{ #category : 'pov ' }
 PannShellfishPopulation >> pov [ 
 	<pov>
 	^ CMPointOfView 
@@ -53,7 +53,7 @@ PannShellfishPopulation >> pov [
 		size: 0.2
 ]
 
-{ #category : 'initialize-release' }
+{ #category : 'ecological methods' }
 PannShellfishPopulation >> reproduce [ 
 
     | dailyNumberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
@@ -69,7 +69,7 @@ PannShellfishPopulation >> reproduce [
     cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
 ]
 
-{ #category : 'initialize-release' }
+{ #category : 'ecological methods' }
 PannShellfishPopulation >> shiftCohorts [
 
 	| cohort nextCohort |
@@ -83,7 +83,7 @@ PannShellfishPopulation >> shiftCohorts [
     cohort numberOfShellfish: 0 ].
 ]
 
-{ #category : 'initialize-release' }
+{ #category : 'ecological methods' }
 PannShellfishPopulation >> stepCohort [
 
     "making shellfishes grow"
@@ -93,7 +93,7 @@ PannShellfishPopulation >> stepCohort [
 	self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ].
 ]
 
-{ #category : 'initialize-release' }
+{ #category : 'indicators' }
 PannShellfishPopulation >> totalNumberOfShellfish [
 
  ^ cohorts sum: [:cohort | cohort numberOfShellfish].
