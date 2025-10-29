@@ -36,7 +36,7 @@ PannShellfishPopulation >> initialize [
 
 	super initialize .
 
-	cohorts := (1 to: 7 by: 0.5) collect: [ :size |
+	cohorts := (1 to: 7 by: 1) collect: [ :size |
   		PannShellfishCohort new
     		age: 0;
     		sizeOfShellfishes: size;
