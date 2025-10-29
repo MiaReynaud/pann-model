@@ -28,17 +28,18 @@ PannShellfishPopulation >> extractShellfish [
 		numberOfShellfishesToExtract := numberOfShellfishesToExtract - exctractedFromCohort.
 		totalExtracted := totalExtracted + exctractedFromCohort ].
 	
-	^ totalExtracted 
+	^ totalExtracted
+	
+
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'init  ' }
 PannShellfishPopulation >> initialize [ 
 
 	super initialize .
 
 	cohorts := (1 to: 7 by: 1) collect: [ :size |
   		PannShellfishCohort new
-    		age: 0;
     		sizeOfShellfishes: size;
     		numberOfShellfish: 2500000; "we estimate that there is one shellfish of each cohort in 20cm², so it's 2 500 000 shellfish of each cohort in 0,5 ha"
     		yourself ].
@@ -90,7 +91,7 @@ PannShellfishPopulation >> stepCohort [
 	self cormasModel dayCounter % 16 = 0 ifTrue: [ self shiftCohorts ].
 
     "making shellfishes reproduce"
-	self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ].
+	"self cormasModel dayCounter % 2 = 0 ifTrue: [ self reproduce ]."
 ]
 
 { #category : 'indicators' }

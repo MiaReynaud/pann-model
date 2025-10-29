@@ -2,7 +2,6 @@ Class {
 	#name : 'PannShellfishCohort',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'age',
 		'numberOfShellfish',
 		'sizeOfShellfishes'
 	],
@@ -31,18 +30,6 @@ PannShellfishCohort class >> initializeParameters [
 	super initializeParameters. 
 	
 	growthPerDay := 1 / 30.0.  "≈ 0.033 mm/day"
-]
-
-{ #category : 'accessing' }
-PannShellfishCohort >> age [
-
-	^ age
-]
-
-{ #category : 'accessing' }
-PannShellfishCohort >> age: anObject [
-
-	age := anObject
 ]
 
 { #category : 'accessing' }
