@@ -141,6 +141,37 @@ PannModel >> initMatrix30 [
 ]
 
 { #category : 'init' }
+PannModel >> initMatrix5 [
+	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
+
+	<init>
+	
+	currentDayOfMonth := 1.
+	currentMonth := 11. "simulation starts in november"
+	dayCounter  := 0.
+	
+	"create grid"
+	self
+		createGridNumberOfRows: 5
+		numberOfColumns: 5
+		neighbourhood: 6
+		closed: true.
+		
+ 	self applyStatesFromMatrix: self stateMatrix5.
+	
+	"add shellfish on every mudflat cell"
+	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
+		self newEntity: PannShellfishPopulation locatedAt: cell ].
+
+	"add fishers"
+	self
+		createN: 1
+		randomlyLocatedEntities: PannFisher
+		constrainedBy: [ :aCell | aCell state = #mudflat ]
+
+]
+
+{ #category : 'init' }
 PannModel >> initMatrix70 [
 	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
 
@@ -166,37 +197,6 @@ PannModel >> initMatrix70 [
 	"add fishers"
 	self
 		createN: self class numberOfFishers
-		randomlyLocatedEntities: PannFisher
-		constrainedBy: [ :aCell | aCell state = #mudflat ]
-
-]
-
-{ #category : 'init' }
-PannModel >> initMatrixSuperSmall [
-	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
-
-	<init>
-	
-	currentDayOfMonth := 1.
-	currentMonth := 11. "simulation starts in november"
-	dayCounter  := 0.
-	
-	"create grid"
-	self
-		createGridNumberOfRows: 5
-		numberOfColumns: 5
-		neighbourhood: 6
-		closed: true.
-		
- 	self applyStatesFromMatrix: self stateMatrix5.
-	
-	"add shellfish on every mudflat cell"
-	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
-		self newEntity: PannShellfishPopulation locatedAt: cell ].
-
-	"add fishers"
-	self
-		createN: 1
 		randomlyLocatedEntities: PannFisher
 		constrainedBy: [ :aCell | aCell state = #mudflat ]
 
