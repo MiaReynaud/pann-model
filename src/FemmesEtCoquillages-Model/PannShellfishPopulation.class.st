@@ -11,7 +11,7 @@ Class {
 { #category : 'fishing methods' }
 PannShellfishPopulation >> dailyFishableQuantity [ 
 
-	 ^ self totalNumberOfShellfish * 1/25. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat cell is 5000m², the total number of available shellfish in the cell (or in the population, it's the same because a cell has only one population and a population is on only one cell) should be multiplied by (400/5000)*0.5 = 1/25  "
+	 ^ self totalNumberOfShellfish * 1/25 min: 3000. "we estimate that each woman can only cover 400m² per day. She only collects 50% of available shellfish in this area. Since the total area of a mudflat cell is 5000m², the total number of available shellfish in the cell (or in the population, it's the same because a cell has only one population and a population is on only one cell) should be multiplied by (400/5000)*0.5 = 1/25  "
 ]
 
 { #category : 'fishing methods' }
@@ -40,7 +40,7 @@ PannShellfishPopulation >> initialize [
   		PannShellfishCohort new
     		age: 0;
     		sizeOfShellfishes: size;
-    		numberOfShellfish: 100;
+    		numberOfShellfish: 5000000; "we estimate that there is one shellfish of each cohort in 10cm², so it's 5 000 000 shellfish of each cohort in 0,5 ha"
     		yourself ].
 ]
 
