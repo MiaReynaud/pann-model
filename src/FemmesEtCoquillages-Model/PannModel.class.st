@@ -186,7 +186,9 @@ PannModel >> initMatrix5 [
 	self
 		createN: 1
 		randomlyLocatedEntities: PannFisher
-		constrainedBy: [ :aCell | aCell state = #mudflat ]
+		constrainedBy: [ :aCell | aCell state = #mudflat ].
+	
+		self buildSare. 
 
 ]
 
@@ -217,7 +219,9 @@ PannModel >> initMatrix70 [
 	self
 		createN: self class numberOfFishers
 		randomlyLocatedEntities: PannFisher
-		constrainedBy: [ :aCell | aCell state = #mudflat ]
+		constrainedBy: [ :aCell | aCell state = #mudflat ].
+		
+	self buildSare. 
 
 ]
 
