@@ -16,7 +16,7 @@ Class {
 { #category : 'initialization' }
 PannModel class >> initializeParameters [
 	super initializeParameters.
-	numberOfFishers := 20
+	numberOfFishers := 200
 ]
 
 { #category : 'as yet unclassified' }
@@ -258,6 +258,17 @@ PannModel >> isFishingPeriod [
 ]
 
 { #category : 'time  ' }
+PannModel >> isMbissa [
+    "Return true if the current day is within a mbissa"
+ 
+	| cycleLength mbissaLength cycleDay |
+	mbissaLength := 10.
+	cycleLength := 15.
+	cycleDay := (self dayCounter - 1 \\ cycleLength) + 1.
+	^ cycleDay <= mbissaLength
+]
+
+{ #category : 'time  ' }
 PannModel >> isNotFishingPeriod [
     "Return true if the current month is within the no-fishing period (Jul–Oct)"
     ^ (currentMonth between: 7 and: 10)
@@ -413,14 +424,14 @@ PannModel >> step [
 		s recruit.
 		 ].
 	
-	self isFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
-		do: #goToFishingSpot;
-		do: #fish.
-		].
-	
-	self isNotFishingPeriod ifTrue: [ (self shuffled: (self @@ PannFisher))
-		do: #goToVillage;
-		do: [:fisher | fisher dailyEarnings: 0 ].
+	(self isFishingPeriod and: [ self isMbissa ]) ifTrue: [ 
+		(self shuffled: (self @@ PannFisher))
+			do: #goToFishingSpot;
+			do: #fish.
+		] ifFalse: [
+		(self shuffled: (self @@ PannFisher))
+			do: #goToVillage;
+			do: [:fisher | fisher dailyEarnings: 0 ].
 		].
 ]
 
