@@ -2,7 +2,7 @@ Class {
 	#name : 'PannShellfishCohort',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'numberOfShellfish',
+		'densityOfShellfish',
 		'sizeOfShellfishes'
 	],
 	#classInstVars : [
@@ -33,15 +33,15 @@ PannShellfishCohort class >> initializeParameters [
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> numberOfShellfish [
+PannShellfishCohort >> densityOfShellfish [
 
-	^ numberOfShellfish
+	^ densityOfShellfish
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> numberOfShellfish: anObject [
+PannShellfishCohort >> densityOfShellfish: anObject [
 
-	numberOfShellfish := anObject
+	densityOfShellfish := anObject
 ]
 
 { #category : 'accessing' }

@@ -35,8 +35,8 @@ PannShellfishPopulation >> extractShellfish [
 	numberOfShellfishesToExtract := self dailyFishableQuantity.
 	
 	cohorts reversed do: [ :cohort | "we reverse it so that the fishers take the bigest ones in priority"
-		exctractedFromCohort := cohort numberOfShellfish min: numberOfShellfishesToExtract.
-		cohort numberOfShellfish: cohort numberOfShellfish - exctractedFromCohort.
+		exctractedFromCohort := cohort densityOfShellfish min: numberOfShellfishesToExtract.
+		cohort densityOfShellfish: cohort densityOfShellfish - exctractedFromCohort.
 		numberOfShellfishesToExtract := numberOfShellfishesToExtract - exctractedFromCohort.
 		totalExtracted := totalExtracted + exctractedFromCohort ].
 	
@@ -53,7 +53,7 @@ PannShellfishPopulation >> initialize [
 	cohorts := (1 to: 7 by: 1) collect: [ :size |
   		PannShellfishCohort new
     		sizeOfShellfishes: size;
-    		numberOfShellfish: 2500000; "we estimate that there is one shellfish of each cohort in 20cm², so it's 2 500 000 shellfish of each cohort in 0,5 ha"
+    		densityOfShellfish: 2500000; "we estimate that there is one shellfish of each cohort in 20cm², so it's 2 500 000 shellfish of each cohort in 0,5 ha"
     		yourself ].
 ]
 
@@ -73,7 +73,7 @@ PannShellfishPopulation >> recruit [
 	
 	numberOfNewborns := self cell sare recruitCapacity.
 	
-	cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
+	cohorts first densityOfShellfish: cohorts first densityOfShellfish + numberOfNewborns.
 ]
 
 { #category : 'not used methods' }
@@ -81,15 +81,15 @@ PannShellfishPopulation >> reproduce [
 
     | dailyNumberOfNewbornsPerShellfish matureCohorts numberOfNewborns |
 
-    matureCohorts := cohorts select: [ :each | each sizeOfShellfishes >= 2 ].
+    matureCohorts := cohorts select: [ :each | each densityOfShellfish >= 2 ].
 
     dailyNumberOfNewbornsPerShellfish := 2.0/30. "on average a shellfish creates a 5 shellfishes once a month"
     numberOfNewborns := 0.
 
     matureCohorts do: [ :each |
-        numberOfNewborns := numberOfNewborns + (dailyNumberOfNewbornsPerShellfish * each numberOfShellfish) ].
+        numberOfNewborns := numberOfNewborns + (dailyNumberOfNewbornsPerShellfish * each densityOfShellfish) ].
 
-    cohorts first numberOfShellfish: cohorts first numberOfShellfish + numberOfNewborns.
+    cohorts first densityOfShellfish: cohorts first densityOfShellfish + numberOfNewborns.
 ]
 
 { #category : 'ecological methods' }
@@ -102,8 +102,8 @@ PannShellfishPopulation >> shiftCohorts [
 	cohort := cohorts at: i.
     nextCohort := cohorts at: i + 1.
 
-    nextCohort numberOfShellfish: nextCohort numberOfShellfish + cohort numberOfShellfish .
-    cohort numberOfShellfish: 0 ].
+    nextCohort densityOfShellfish: nextCohort densityOfShellfish + cohort densityOfShellfish .
+    cohort densityOfShellfish: 0 ].
 ]
 
 { #category : 'ecological methods' }
@@ -119,5 +119,5 @@ PannShellfishPopulation >> stepCohort [
 { #category : 'accessing  ' }
 PannShellfishPopulation >> totalNumberOfShellfishes [
 
- ^ cohorts sum: [:cohort | cohort numberOfShellfish].
+ ^ cohorts sum: [:cohort | cohort densityOfShellfish].
 ]

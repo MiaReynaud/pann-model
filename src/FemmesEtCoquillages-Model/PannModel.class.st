@@ -232,7 +232,7 @@ PannModel >> initMatrix5 [
 		randomlyLocatedEntities: PannFisher
 		constrainedBy: [ :aCell | aCell state = #mudflat ].
 	
-		self buildSare. 
+		self buildSare1. 
 
 ]
 
