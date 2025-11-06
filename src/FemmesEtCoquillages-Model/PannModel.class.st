@@ -232,7 +232,7 @@ PannModel >> initialiseSareAttributes [
 	
 	sare := ( self @@ PannSare ) detect: [ :each | each id = 1]. 
 	sare name: 'amacala 1'.
-	sare recruitCapacity: 183. "20 000 1cm shellfishes are recruited every year, so 109 every two days "
+	sare recruitCapacity: 200. "20 000 1cm shellfishes are recruited every year, so 109 every two days "
 	
 	sare := ( self @@ PannSare ) detect: [ :each | each id = 2]. 
 	sare name: 'anewanew 1'.
