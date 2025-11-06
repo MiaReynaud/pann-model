@@ -328,6 +328,12 @@ PannModel >> isNotFishingPeriod [
     ^ (currentMonth between: 7 and: 10)
 ]
 
+{ #category : 'time  ' }
+PannModel >> isRecruitDay [
+
+	^ (currentDayOfMonth = 1)  and: (currentMonth = 12)
+]
+
 { #category : 'init' }
 PannModel >> sareNamed: aString [
 "to access a sare by his name"
@@ -494,7 +500,7 @@ PannModel >> step [
 		] ifFalse: [
 		(self shuffled: (self @@ PannFisher))
 			do: #goToVillage;
-			do: [:fisher | fisher dailyEarnings: 0 ].
+			do: [:fisher | fisher dailyEarnings: 0 ]. "there is no other activity"
 		].
 ]
 

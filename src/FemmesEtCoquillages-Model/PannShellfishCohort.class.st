@@ -2,56 +2,51 @@ Class {
 	#name : 'PannShellfishCohort',
 	#superclass : 'CMAgent',
 	#instVars : [
-		'densityOfShellfish',
-		'sizeOfShellfishes'
-	],
-	#classInstVars : [
-		'growthPerDay'
+		'shellfishAge',
+		'shellfishSize',
+		'shellfishDensity'
 	],
 	#category : 'FemmesEtCoquillages-Model',
 	#package : 'FemmesEtCoquillages-Model'
 }
 
-{ #category : 'accessing' }
-PannShellfishCohort class >> growthPerDay [
-
-	^ growthPerDay
+{ #category : 'initialization' }
+PannShellfishCohort >> initialize [ 
+	super initialize.
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort class >> growthPerDay: anObject [
+PannShellfishCohort >> shellfishAge [
 
-	growthPerDay := anObject
+	^ shellfishAge
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort class >> initializeParameters [ 
+PannShellfishCohort >> shellfishAge: aNumber [
 
-	super initializeParameters. 
-	
-	growthPerDay := 1 / 30.0.  "≈ 0.033 mm/day"
+	shellfishAge := aNumber
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> densityOfShellfish [
+PannShellfishCohort >> shellfishDensity [
 
-	^ densityOfShellfish
+	^ shellfishDensity
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> densityOfShellfish: anObject [
+PannShellfishCohort >> shellfishDensity: aNumber [
 
-	densityOfShellfish := anObject
+	shellfishDensity := aNumber
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> sizeOfShellfishes [
+PannShellfishCohort >> shellfishSize [
 
-	^ sizeOfShellfishes
+	^ shellfishSize
 ]
 
 { #category : 'accessing' }
-PannShellfishCohort >> sizeOfShellfishes: anObject [
+PannShellfishCohort >> shellfishSize: aNumber [
 
-	sizeOfShellfishes := anObject
+	shellfishSize := aNumber
 ]
