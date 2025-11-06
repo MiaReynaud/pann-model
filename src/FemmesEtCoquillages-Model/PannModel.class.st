@@ -108,6 +108,23 @@ PannModel >> buildSare [
 	
 ]
 
+{ #category : 'init' }
+PannModel >> buildSare1 [
+	
+	self releaseAggregateType: PannSare .
+	self
+		createAggregates: PannSare 
+		from: PannPlot 
+		verifying: [ :aCell | aCell isMudflat ]
+		minimumSize: 1.
+		
+	(self @@ PannSare) do: [ :agg | "self spaceModel meanCompactness: PannSare"
+		agg initNeighbourhood ].
+	
+	self initialiseSareAttributes1.
+	
+]
+
 { #category : 'accessing' }
 PannModel >> currentDayOfMonth [
 
@@ -124,6 +141,33 @@ PannModel >> currentMonth [
 PannModel >> dayCounter [
 
 	^ dayCounter
+]
+
+{ #category : 'init' }
+PannModel >> initMatrix1 [
+	"This method is used to define the initial environment of a simulation. It will be executed once when the simulation is initialized."
+
+	<init>
+	
+	currentDayOfMonth := 1.
+	currentMonth := 11. "simulation starts in november"
+	dayCounter  := 0.
+	
+	"create grid"
+	self
+		createGridNumberOfRows: 1
+		numberOfColumns: 1
+		neighbourhood: 6
+		closed: true.
+		
+ 	self applyStatesFromMatrix: self stateMatrix1.
+	
+	"add shellfish on every mudflat cell"
+	(self cells select: [ :c | c state = #mudflat ]) do: [ :cell |
+		self newEntity: PannShellfishPopulation locatedAt: cell ].
+	
+		self buildSare1. 
+
 ]
 
 { #category : 'init' }
@@ -251,6 +295,16 @@ PannModel >> initialiseSareAttributes [
 	sare recruitCapacity: 55. "10 000 per year"
 ]
 
+{ #category : 'init' }
+PannModel >> initialiseSareAttributes1 [
+
+	| sare |
+	
+	sare := ( self @@ PannSare ) detect: [ :each | each id = 1]. 
+	sare name: 'amacala 1'.
+	sare recruitCapacity: 200. "20 000 1cm shellfishes are recruited every year, so 109 every two days "
+]
+
 { #category : 'time  ' }
 PannModel >> isFishingPeriod [
     "Return true if the current month is within the fishing period (Nov–Jun)"
@@ -279,6 +333,15 @@ PannModel >> sareNamed: aString [
 "to access a sare by his name"
 
 	^(self @@ PannSare) detect: [ :each | each name = aString ]
+]
+
+{ #category : 'gridMatrix' }
+PannModel >> stateMatrix1 [
+    "Returns a sample map : 0 = sea, 1 = village, 2 = mudflat, 3 = mangrove."
+
+    ^ #(
+		(2)
+    )
 ]
 
 { #category : 'gridMatrix' }
